@@ -25,12 +25,12 @@ import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 import seaborn as sns
+from sklearn.metrics import ndcg_score
 #self-defined
 from config import *
 from utils.logger import get_logger
-from datasets.IDRiDSegHE import get_train_dataloader, get_test_dataloader
 from nets.SANet import SANet, RelevanceDegreeLoss
-from sklearn.metrics import ndcg_score
+
 
 #command parameters
 parser = argparse.ArgumentParser(description='For FundusDR')
@@ -193,7 +193,8 @@ def Test():
 def main():
     #Train() #for training
     #Test() #for test
-    print(ndcg_score([[5,4,0,0,1,0,3,0,2,5]], [[5,5,4,3,2,1,0,0,0,0]]))
+    print(ndcg_score([[5,5,4,3,2,1,0,0,0,0]],[[5,4,0,0,1,0,3,0,2,5]]))
+    print(ndcg_score([[0,0,0,0,1,2,3,4,5,5]],[[5,4,0,0,1,0,3,0,2,5]]))
 
 if __name__ == '__main__':
     main()
