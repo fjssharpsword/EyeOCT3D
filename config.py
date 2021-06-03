@@ -1,16 +1,15 @@
 import os
 
 config = {
-            'CKPT_PATH': '/data/pycode/Thesis/ckpt/',
-            'log_path':  '/data/pycode/Thesis/log/',
-            'img_path': '/data/pycode/Thesis/imgs/',
-            'CUDA_VISIBLE_DEVICES': "7",
+            'CKPT_PATH': '/data/pycode/EyeOCT3D/ckpt/',
+            'log_path':  '/data/pycode/EyeOCT3D/log/',
+            'img_path': '/data/pycode/EyeOCT3D/imgs/',
+            'CUDA_VISIBLE_DEVICES': "0,1,2,3,4,5,6,7",
+            'CUBE_SIZE': [100, 100, 160],  #D*H*W
             'MAX_EPOCHS': 50,
-            'BATCH_SIZE': 16, 
-            'TRAN_SIZE': 256
+            'CODE_SIZE': 8,
+            'BATCH_SIZE': 24
          } 
 
-#config for dataset
-CLASS_NAMES = ['No DR', 'Mild DR', 'Moderate DR', 'Severe DR', 'Proliferative DR']
-N_CLASSES = len(CLASS_NAMES)
+
 
