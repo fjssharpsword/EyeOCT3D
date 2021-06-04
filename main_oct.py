@@ -182,9 +182,9 @@ def Test():
                 if te_idx == tr_idx:  #hit
                     num_pos = num_pos +1
                     mAP.append(num_pos/rank_pos)
-                #elif te_idx in [2., 3., 4., 5., 6.] and tr_idx in [2., 3., 4., 5., 6.]: #disease hit
-                #    num_pos = num_pos +1
-                #    mAP.append(num_pos/rank_pos)
+                elif te_idx in [2., 3., 4., 5., 6.] and tr_idx in [2., 3., 4., 5., 6.]: #disease hit
+                    num_pos = num_pos +1
+                    mAP.append(num_pos/rank_pos)
                 else:
                     mAP.append(0)
             if len(mAP) > 0:
@@ -202,7 +202,7 @@ def Test():
         logger.info("AP@{}={:.4f}".format(topk, np.mean(mAPs_avg)))
 
 def main():
-    #Train()
+    Train()
     Test()
 
 if __name__ == '__main__':
