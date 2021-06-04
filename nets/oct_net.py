@@ -36,7 +36,13 @@ class CircleLoss(nn.Module):
         labels = (labels.cpu().data + 1)
         labels = labels.unsqueeze(1)
         mask = torch.matmul(labels, torch.t(labels))
-        mask = mask.eq(1).int() + mask.eq(4).int() + mask.eq(9).int() + mask.eq(16).int() + mask.eq(25).int()#1x1,2x2,3x3,4x4,5x5
+        #1x1,2x2,3x3,4x4,5x5, 6x6,7x7, 
+        mask = mask.eq(1).int() + mask.eq(4).int() + mask.eq(9).int() + \
+            mask.eq(16).int() + mask.eq(25).int() + mask.eq(36).int() + mask.eq(47).int() + \
+                mask.eq(3*4).int() + mask.eq(3*5).int() + mask.eq(3*6).int() + mask.eq(3*7).int() + \
+                    mask.eq(4*5).int() + mask.eq(4*6).int() + mask.eq(4*7).int() + \
+                        mask.eq(5*6).int() + mask.eq(5*7).int() + mask.eq(6*7).int()
+               
 
         pos_mask = mask.triu(diagonal=1)
         neg_mask = (mask - 1).abs_().triu(diagonal=1)
@@ -155,6 +161,7 @@ class CT3DIRNet(nn.Module):
         self.csa = CrossSliceAttention()
         self.gem = GeMLayer()
         self.fc = nn.Sequential(nn.Linear(512, code_size), nn.Sigmoid()) #for metricl learning
+        #self.fc = nn.Sequential(nn.Linear(512, code_size), nn.ReLU()) # for classification
 
     def forward(self, x):
         x = self.conv3d(x)
@@ -165,7 +172,7 @@ class CT3DIRNet(nn.Module):
 
 if __name__ == "__main__":
     #for debug  
-    scan =  torch.rand(5, 2, 100, 100, 160).cuda()
-    model = CT3DIRNet(in_channels=2, code_size=8).cuda()
+    scan =  torch.rand(10, 2, 80, 80, 80).cuda()
+    model = CT3DIRNet(in_channels=2, code_size=7).cuda()
     out = model(scan)
     print(out.shape)
